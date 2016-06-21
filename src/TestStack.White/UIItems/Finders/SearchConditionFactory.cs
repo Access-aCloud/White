@@ -15,8 +15,21 @@ namespace TestStack.White.UIItems.Finders
 
         public static SearchCondition CreateForControlType(Type testControlType, WindowsFramework framework)
         {
+//            if (testControlType.IsCustomType())
+                //return CreateForControlType(CustomControlTypeMapping.ControlType(testControlType, framework));
+
             if (testControlType.IsCustomType())
-                return CreateForControlType(CustomControlTypeMapping.ControlType(testControlType, framework));
+            {
+                var types = CustomControlTypeMapping.ControlTypes(testControlType, framework);
+                if (types.Length > 1)
+                {
+                    return new OrSearchCondition(types.Select(CreateForControlType).ToArray());
+                }
+                else
+                {
+                    return CreateForControlType(types[0]);
+                }
+            }
             var controlTypes = ControlDictionary.Instance.GetControlType(testControlType, framework.FrameworkId());
             if (controlTypes.Length == 1)
                 return CreateForControlType(controlTypes[0]);

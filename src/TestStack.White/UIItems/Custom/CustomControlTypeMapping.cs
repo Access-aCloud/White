@@ -59,17 +59,24 @@ namespace TestStack.White.UIItems.Custom
 
         public static ControlType ControlType(Type type, WindowsFramework framework)
         {
-            var controlTypeMappingAttribute = type.GetCustomAttributes(typeof(ControlTypeMappingAttribute), true)
+            return ControlTypes(type, framework).Single();
+        }
+
+        public static ControlType[] ControlTypes(Type type, WindowsFramework framework)
+        {
+            var controlTypeMappingAttribute = type.GetCustomAttributes(typeof (ControlTypeMappingAttribute), true)
                 .OfType<ControlTypeMappingAttribute>()
                 .ToArray();
             if (!controlTypeMappingAttribute.Any())
-                throw new CustomUIItemException("ControlTypeMappingAttribute needs to be defined for this type: " + type.FullName);
+                throw new CustomUIItemException("ControlTypeMappingAttribute needs to be defined for this type: " +
+                                                type.FullName);
 
             var frameworkSpecific = controlTypeMappingAttribute.FirstOrDefault(c => c.AppliesToFramework == framework);
             if (frameworkSpecific != null)
-                return ControlType(frameworkSpecific.CustomUIItemType);
+                return new[] {ControlType(frameworkSpecific.CustomUIItemType)};
 
-            return ControlType(controlTypeMappingAttribute.Single(a=>a.AppliesToFramework == null).CustomUIItemType);
+            var controlAttributes = controlTypeMappingAttribute.Where(a => a.AppliesToFramework == null).Select(x => x.CustomUIItemType);
+            return controlAttributes.Select(ControlType).ToArray();
         }
     }
 }

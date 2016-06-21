@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Automation;
 using TestStack.White.AutomationElementSearch;
 using TestStack.White.Factory;
@@ -9,7 +10,9 @@ namespace TestStack.White.UIItems.TreeItems
     public class TreeNodes : UIItemList<TreeNode>
     {
         public TreeNodes(AutomationElementFinder finder, IActionListener actionListener)
-            : base(finder.Children(AutomationSearchCondition.ByControlType(ControlType.TreeItem)), actionListener) {}
+            : base(finder.Children(AutomationSearchCondition.ByControlType(ControlType.TreeItem))
+            .Concat(finder.Children(AutomationSearchCondition.ByControlType(ControlType.DataItem))).ToList(),
+            actionListener) {}
 
         /// <summary>
         /// Gets the TreeNode matching the path. If multi-level find is specified in arguments then in process of finding the TreeNode it would also expand the TreeNodes.

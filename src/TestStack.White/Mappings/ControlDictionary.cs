@@ -63,6 +63,7 @@ namespace TestStack.White.Mappings
             items.AddInternetExplorerPrimary(typeof(ComboBox), ControlType.ComboBox);
             items.AddFrameworkSpecificPrimary(ControlType.StatusBar, typeof(StatusStrip), typeof(StatusStrip), typeof(WPFStatusBar), typeof(WPFStatusBar));
             items.AddWPFPrimary(typeof(CustomUIItem), ControlType.Custom);
+            items.AddWinFormPrimary(typeof(CustomUIItem), ControlType.Custom);
             items.AddWinFormPrimary(typeof(TextBox), ControlType.Document);
             items.AddWin32Primary(typeof(TextBox), ControlType.Document);
             items.AddWPFPrimary(typeof(Image), ControlType.Image);
@@ -78,6 +79,7 @@ namespace TestStack.White.Mappings
             items.AddSecondary(typeof(TableHeader), ControlType.Custom);
             items.AddSecondary(typeof(TableRow), ControlType.Custom);
             items.AddSecondary(typeof(Menu), ControlType.MenuItem);
+            items.AddSecondary(typeof(TreeNode), ControlType.DataItem);
             items.AddSecondary(typeof(ListViewRow), ControlType.DataItem);
 
             //TODO: create method for specific implementors (Tree, StatusBar, Label)
@@ -87,6 +89,7 @@ namespace TestStack.White.Mappings
             items.Add(ControlDictionaryItem.SilverlightSecondary(typeof(WPFListItem), ControlType.ListItem));
             items.Add(ControlDictionaryItem.InternetExplorerSecondary(typeof(WPFListItem), ControlType.ListItem));
 
+            items.Add(ControlDictionaryItem.WinFormSecondary(typeof(Win32TreeNode), ControlType.DataItem));
             items.Add(ControlDictionaryItem.WinFormSecondary(typeof(Win32TreeNode), ControlType.TreeItem));
             items.Add(ControlDictionaryItem.WPFSecondary(typeof(WPFTreeNode), ControlType.TreeItem));
             items.Add(ControlDictionaryItem.Win32Secondary(typeof(Win32TreeNode), ControlType.TreeItem));
