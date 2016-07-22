@@ -57,6 +57,21 @@ namespace TestStack.White.UIItems.Custom
             return Mappings[customUIItemType];
         }
 
+        //public static ControlType ControlType(Type type, WindowsFramework framework)
+        //{
+        //    var controlTypeMappingAttribute = type.GetCustomAttributes(typeof(ControlTypeMappingAttribute), true)
+        //        .OfType<ControlTypeMappingAttribute>()
+        //        .ToArray();
+        //    if (!controlTypeMappingAttribute.Any())
+        //        throw new CustomUIItemException("ControlTypeMappingAttribute needs to be defined for this type: " + type.FullName);
+
+        //    var frameworkSpecific = controlTypeMappingAttribute.FirstOrDefault(c => c.AppliesToFramework == framework);
+        //    if (frameworkSpecific != null)
+        //        return ControlType(frameworkSpecific.CustomUIItemType);
+
+        //    return ControlType(controlTypeMappingAttribute.Single(a=>a.AppliesToFramework == null).CustomUIItemType);
+        //}
+
         public static ControlType ControlType(Type type, WindowsFramework framework)
         {
             return ControlTypes(type, framework).Single();
